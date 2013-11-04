@@ -1,3 +1,7 @@
+''''''''''''''''''''''''''''''''''''''''''''''''''''''
+'''''''''' Copyright (c) by Florian Asche ''''''''''''
+''''''''''''''''''''''''''''''''''''''''''''''''''''''
+
 Config Adc = Single , Prescaler = Auto , Reference = Internal
 Start Adc
 
@@ -12,3 +16,4 @@ Do
 Loop
 
 End
+
