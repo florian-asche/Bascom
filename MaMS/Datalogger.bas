@@ -6,6 +6,7 @@
 '#     Bascom Programm (1Wire+PWM)    #
 '######################################
 
+
 $regfile "m32def.dat"                                     'Dem Programm sagen was für ein Controller verwendet wird
 
 $crystal = 14745600                                         'Taktrate des Controllers einstellen
