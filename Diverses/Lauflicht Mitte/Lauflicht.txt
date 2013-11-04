@@ -1,0 +1,34 @@
+''''''''''''''''''''''''''''''''''''''''''''''''''''''
+'''''''''' Copyright (c) by Florian Asche ''''''''''''
+''''''''''''''''''''''''''''''''''''''''''''''''''''''
+
+Dim Wert As Integer
+Dim I as Integer
+Dim Aus As Integer
+Dim Wert2 As Integer
+
+Config Portd = Output
+Wert = 1
+Wert2 = 128
+
+Do
+I = 1
+For I = 1 To 4
+Wert = Wert * 2
+Wert2 = Wert2 / 2
+Aus = Wert + Wert2
+Portd = Aus
+Waitms 80
+Next
+
+I = 1
+
+For I = 1 To 4
+Wert = Wert / 2
+Wert2 = Wert2 * 2
+Aus = Wert + Wert2
+Portd = Aus
+Waitms 80
+Next
+
+Loop

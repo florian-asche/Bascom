@@ -1,0 +1,25 @@
+Hallo Eseler,
+
+bei der Programmierung muss beachtet werden, dass Taster prellen. Dies bedeutet, dass beim Drücken das Tasters nicht nur ein Signal erzeugt wird, sondern mehrere. Folgendes Programm zeigt eine Möglichkeit das Prellen der Tasten per Software herauszufiltern.
+
+$crystal = 12000000
+
+Config Pinc.0 = Input
+Config Pinc.1 = Output
+
+Do
+
+Bitwait Pinc.0 , Reset 'Warte bis Pin von 1 auf 0 wechselt
+Set Portc.1 'Led AN
+Waitms 200 '200 ms warten (Tastenprellen abwarten)
+Bitwait Pinc.0 , Reset 'Warte bis PIN von 1 auf 0 wechselt
+Reset Portc.1 'LED aus
+Waitms 200 '200 ms warten (Tastenprellen abwarten
+
+Loop
+
+End
+
+Viel Spaß damit!
+
+G. Mora 

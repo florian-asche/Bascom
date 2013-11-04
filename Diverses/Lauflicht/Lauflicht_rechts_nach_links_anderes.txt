@@ -1,0 +1,24 @@
+''''''''''''''''''''''''''''''''''''''''''''''''''''''
+'''''''''' Copyright (c) by Florian Asche ''''''''''''
+''''''''''''''''''''''''''''''''''''''''''''''''''''''
+
+$regfile = "m8def.dat"                                      'Regfile des Controllers
+$crystal = 12000000                                         'Taktrate des Quarz
+
+Dim Wert As Integer                                         'Deklatieren der Variable
+Dim I As Integer                                            'Deklatieren der Variable
+
+Config Portd = Output                                       'PortD als Ausgang Freischalten
+
+Wert = 256                                                  'Start Wert Festlegen
+
+Do                                                          'Beginn der Schleife
+  Wert = Wert / 2                                           'Den Wert durch zwei Teilen
+  Portd = Wert                                              'Den Wert auf dem PortD ausgeben
+Waitms 300                                                  'Wartezeit damit es für das Menschliche Auge Sichtbar ist
+
+If Wert = 0 Then                                            'Wenn der Wert 0 ist dann
+Wert = 256                                                  'Start Wert Festlegen
+End If                                                      'Ende der IF
+
+Loop                                                        'Ende der Schleife

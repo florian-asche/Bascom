@@ -1,0 +1,50 @@
+$regfile = "m8def.dat"
+$crystal = 12000000
+Dim I As Integer
+Dim Arraylol(8) As Byte
+Dim Arrayrofl(4) As Byte
+
+Config Portd = Output
+Config Pinb.0 = Input
+Config Pinb.1 = Input
+
+Arraylol(1) = 1
+Arraylol(2) = 2
+Arraylol(3) = 4
+Arraylol(4) = 8
+Arraylol(5) = 16
+Arraylol(6) = 32
+Arraylol(7) = 64
+Arraylol(8) = 128
+
+Arrayrofl(1) = 129
+Arrayrofl(2) = 66
+Arrayrofl(3) = 36
+Arrayrofl(4) = 24
+
+Do
+If Pinb.0 = 0 Then
+Do
+For I = 1 To 8
+Portd = Arraylol(i)
+If Pinb.1 = 0 Then
+Exit Do
+End If
+Waitms 100
+Next
+Loop
+End If
+
+If Pinb.1 = 0 Then
+Do
+For I = 1 To 4
+Portd = Arrayrofl(i)
+If Pinb.0 = 0 Then
+Exit Do
+End If
+Waitms 100
+Next
+Loop
+End If
+Loop
+End
