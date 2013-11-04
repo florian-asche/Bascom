@@ -6,10 +6,9 @@
 '#     Bascom Programm (1Wire+PWM)    #
 '######################################
 
+$regfile "m644def.dat"                                       'Dem Programm sagen was für ein Controller verwendet wird
 
-$regfile "m32def.dat"                                     'Dem Programm sagen was für ein Controller verwendet wird
-
-$crystal = 14745600                                         'Taktrate des Controllers einstellen
+$crystal = 16000000                                         'Taktrate des Controllers einstellen
 $baud = 9600                                                'Baudrate der Seriellenschnittstelle Einstellen
 
 Print "Booting System..."
@@ -131,10 +130,12 @@ Do                                                          'Starten der Loop Sc
             Varcompare1b = Compare1b
             Print Varcompare1b                              'PWM Einstellung Ausgeben
             Print "EOF"                                     'Ausgabe beenden
-      Elseif Befehl = "pwmread" Then                        'Wenn RS232 Befehl "pwmreada" ist
+      Elseif Befehl = "pwmreada" Then                       'Wenn RS232 Befehl "pwmreada" ist
             Varcompare1a = Compare1a
-            Varcompare1b = Compare1b
             Print "CHAN A " ; Varcompare1a                  'PWM A Ausgeben
+            Print "EOF"                                     'Ausgabe beenden
+      Elseif Befehl = "pwmreadb" Then                       'Wenn RS232 Befehl "pwmreada" ist
+            Varcompare1b = Compare1b
             Print "CHAN B " ; Varcompare1b                  'PWM A Ausgeben
             Print "EOF"                                     'Ausgabe beenden
 '      Elseif Befehl = "backupsystem_on" Then                'Wenn RS232 Befehl "backupsystem_on" ist
@@ -168,7 +169,8 @@ Do                                                          'Starten der Loop Sc
             Print "- 1wire                 Temperatursensoren Abfrage"       'Ausgabe: Hilfsmenü
             Print "- pwmseta<wert>         Lüftersteuerung 1. Luefter"       'Ausgabe: Hilfsmenü
             Print "- pwmsetb<wert>         Lüftersteuerung 2. Luefter"       'Ausgabe: Hilfsmenü
-            Print "- pwmread               Ausgabe der gesetzten Werte der Lüftererung"       'Ausgabe: Hilfsmenü
+            Print "- pwmreada               Ausgabe der gesetzten Werte der Lüftererung CHAN A"       'Ausgabe: Hilfsmenü
+            Print "- pwmreadb               Ausgabe der gesetzten Werte der Lüftererung CHAN B"       'Ausgabe: Hilfsmenü
             Print "- dht11                 DHT11 Sensor"
 '            Print "- backupsystem_on       einschalten des Backupsystems"       'Ausgabe: Hilfsmenü
 '            Print "- backupsystem_off      ausschalten des Backupsystems"       'Ausgabe: Hilfsmenü
@@ -353,7 +355,7 @@ Sub Dht11()
    Dhttemp = Binval(tmpstr8)
 
    Tmpstr8 = Right(dhtwenshi , 8)
-   dht11Tmp = Binval(tmpstr8)
+   Dht11tmp = Binval(tmpstr8)
 
    Dhtdhtmybyte = Dhttemp + Dhtlufu
    If Dhtdhtmybyte <> Dht11tmp Then
