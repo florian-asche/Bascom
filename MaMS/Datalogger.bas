@@ -1,9 +1,11 @@
 '######################################
-'#        Serverschrank System        #
+'#       Serverschrank System         #
 '#       (c) by Florian Asche         #
-'#              09.03.2011            #
 '######################################
-'#     Bascom Programm (1Wire+PWM)    #
+'#     Bascom Programm                #
+'#     - 1Wire                        #
+'#     - DHT11                        #
+'#     - PWM                          #
 '######################################
 
 $regfile "m644pdef.dat"                                       'Dem Programm sagen was für ein Controller verwendet wird
