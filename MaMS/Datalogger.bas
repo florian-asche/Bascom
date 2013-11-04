@@ -6,7 +6,7 @@
 '#     Bascom Programm (1Wire+PWM)    #
 '######################################
 
-$regfile "m644def.dat"                                       'Dem Programm sagen was für ein Controller verwendet wird
+$regfile "m644pdef.dat"                                       'Dem Programm sagen was für ein Controller verwendet wird
 
 $crystal = 16000000                                         'Taktrate des Controllers einstellen
 $baud = 9600                                                'Baudrate der Seriellenschnittstelle Einstellen
@@ -278,6 +278,7 @@ Adccheck:
          Adcalarmsub = 1
       End If
    End If
+   'Print "PORT A1 - 0 " ; Adcalarmsub1 ; " " ; Adcwert1 ; " - " ; Adcalarmsub2 ; " " ; Adcwert2       'KEIN ALARM
 Return
 
 
