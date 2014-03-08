@@ -1,4 +1,4 @@
 Bascom
 ======
 
-Bascom Projekte
+Hierbei handelt es sich um einfache kleine Programme welche während meiner Schulzeit entstanden sind.
