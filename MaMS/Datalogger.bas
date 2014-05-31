@@ -8,7 +8,7 @@
 '#     - PWM                          #
 '######################################
 
-$regfile "m644pdef.dat"                                       'Dem Programm sagen was für ein Controller verwendet wird
+$regfile "m644pdef.dat"                                       'Dem Programm sagen was fï¿½r ein Controller verwendet wird
 
 $crystal = 16000000                                         'Taktrate des Controllers einstellen
 $baud = 9600                                                'Baudrate der Seriellenschnittstelle Einstellen
@@ -21,12 +21,12 @@ Config Portd.5 = Output                                     'PWM: Den PORTD.4 al
 Dim Adcwert As Word
 Dim Adcwert1 As Word
 Dim Adcwert2 As Word
-Config 1wire = Porta.5                                      'Port für 1wire DS18B20
-'Buzzer Alias Porta.7                                        'Port für Buzzer (Sound)
-Config Timer1 = Pwm , Pwm = 8 , Compare A Pwm = Clear Up , Compare B Pwm = Clear Up , Prescale = 1       'Konfiguration für PWM
-Compare1a = 255                                             'Lüfter abschalten
-Compare1b = 255                                             'Lüfter abschalten
-Dim Runde As Integer                                        'Rundenzähler: Deklarieren der Variable (Bekanntmachen der Variable)
+Config 1wire = Porta.5                                      'Port fï¿½r 1wire DS18B20
+'Buzzer Alias Porta.7                                        'Port fï¿½r Buzzer (Sound)
+Config Timer1 = Pwm , Pwm = 8 , Compare A Pwm = Clear Up , Compare B Pwm = Clear Up , Prescale = 1       'Konfiguration fï¿½r PWM
+Compare1a = 255                                             'Lï¿½fter abschalten
+Compare1b = 255                                             'Lï¿½fter abschalten
+Dim Runde As Integer                                        'Rundenzï¿½hler: Deklarieren der Variable (Bekanntmachen der Variable)
 Dim Zeichen As Word                                         'RS232: Deklarieren der Variable (Bekanntmachen der Variable)
 Dim Befehl As String * 50                                   'RS232: Deklarieren der Variable (Bekanntmachen der Variable)
 Dim Pwmwert As String * 3                                   'PWM Deklaration
@@ -46,9 +46,9 @@ Dim Adcalarmsub2 As Bit                                     'Alarmsystem schleif
 Adcalarmsub = 0
 Adcalarmsub1 = 0
 Adcalarmsub2 = 0
-Einbefehl = 0                                               'RS232 Prüfvariable: Variablen auf 0 Setzten
+Einbefehl = 0                                               'RS232 Prï¿½fvariable: Variablen auf 0 Setzten
 Befehl = ""                                                 'Befehl = keiner
-Runde = 0                                                   'Rundenzähler: Variablen auf 0 Setzten
+Runde = 0                                                   'Rundenzï¿½hler: Variablen auf 0 Setzten
 Pwmwert2 = 0                                                'Standard PWM Wert setzen falls mal kein Wert eingegeben wird
 'Dim Emergencytemp As Single                                'Emergency: Deklarieren der Variable (Bekanntmachen der Variable)
 'Emergencytemp = 35                                         'Hier wird der Schwellenwert gesetzt ab dem der Microcontroller aus selbstschutz in den Emergency Mode geht.
@@ -85,14 +85,14 @@ On Urxc Onrxd                                               'Wenn RS232 Interrup
 Enable Urxc                                                 'Serial RX complete interrupt Aktivieren
 Enable Interrupts                                           'Interrupt Aktivieren
 
-'Startroutinen ausführen''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+'Startroutinen ausfï¿½hren''''''''''''''''''''''''''''''''''''''''''''''''''''''''
 'Sound Buzzer , 400 , 650                                    'BEEP
-Print "Prüfe System..."
-Compare1a = 0                                               'Lüfter durchstarten
-Compare1b = 0                                               'Lüfter durchstarten
-'Waitms 4000                                                'Lüfter durchstarten lassen
-'Compare1a = 50                                             'Lüfter abschalten
-'Compare1b = 50                                             'Lüfter abschalten
+Print "Prï¿½fe System..."
+Compare1a = 0                                               'Lï¿½fter durchstarten
+Compare1b = 0                                               'Lï¿½fter durchstarten
+'Waitms 4000                                                'Lï¿½fter durchstarten lassen
+'Compare1a = 50                                             'Lï¿½fter abschalten
+'Compare1b = 50                                             'Lï¿½fter abschalten
 Gosub 1wirecheck
 Gosub 1wire
 'Gosub 1wireausgabe
@@ -111,13 +111,13 @@ Print "EOF"
 Do                                                          'Starten der Loop Schleife
 'Print Einbefehl
 'Print Befehl
- If Einbefehl = 1 Then                                      'Prüfen ob RS232 Signal Aktiv
+ If Einbefehl = 1 Then                                      'Prï¿½fen ob RS232 Signal Aktiv
       If Befehl = "alive" Then                              'Wenn RS232 Befehl "alive" ist
             Print "SYSTEM HERE"                             'Ausgabe beenden
             Print "EOF"                                     'Ausgabe beenden
       Elseif Befehl = "1wire" Then                          'Wenn RS232 Befehl "1wire" ist
             Gosub 1wire
-            'Gosub 1wireausgabe                              'Sub für 1Wire Ausgabe aufrufen
+            'Gosub 1wireausgabe                              'Sub fï¿½r 1Wire Ausgabe aufrufen
             Print "EOF"                                     'Ausgabe beenden
       Elseif Befehl = "dht11" Then                          'Wenn RS232 Befehl "1wire" ist
             Gosub Dht11
@@ -166,43 +166,44 @@ Do                                                          'Starten der Loop Sc
             Adcalarmsub2 = 0
             Print "EOF"
       Elseif Befehl = "?" Then                              'Wenn RS232 Befehl "?" ist
-            Print "Hilfsmenü:"                              'Ausgabe: Hilfsmenü
-            Print "- alive                 Info, ob das Geraet noch lebt"       'Ausgabe: Hilfsmenü
-            Print "- 1wire                 Temperatursensoren Abfrage"       'Ausgabe: Hilfsmenü
-            Print "- pwmseta<wert>         Lüftersteuerung 1. Luefter"       'Ausgabe: Hilfsmenü
-            Print "- pwmsetb<wert>         Lüftersteuerung 2. Luefter"       'Ausgabe: Hilfsmenü
-            Print "- pwmreada               Ausgabe der gesetzten Werte der Lüftererung CHAN A"       'Ausgabe: Hilfsmenü
-            Print "- pwmreadb               Ausgabe der gesetzten Werte der Lüftererung CHAN B"       'Ausgabe: Hilfsmenü
+            Print "Hilfsmenï¿½:"                              'Ausgabe: Hilfsmenï¿½
+            Print "- alive                 Info, ob das Geraet noch lebt"       'Ausgabe: Hilfsmenï¿½
+            Print "- 1wire                 Temperatursensoren Abfrage"       'Ausgabe: Hilfsmenï¿½
+            Print "- pwmseta<wert>         Lï¿½ftersteuerung 1. Luefter"       'Ausgabe: Hilfsmenï¿½
+            Print "- pwmsetb<wert>         Lï¿½ftersteuerung 2. Luefter"       'Ausgabe: Hilfsmenï¿½
+            Print "- pwmreada               Ausgabe der gesetzten Werte der Lï¿½ftererung CHAN A"       'Ausgabe: Hilfsmenï¿½
+            Print "- pwmreadb               Ausgabe der gesetzten Werte der Lï¿½ftererung CHAN B"       'Ausgabe: Hilfsmenï¿½
             Print "- dht11                 DHT11 Sensor"
-'            Print "- backupsystem_on       einschalten des Backupsystems"       'Ausgabe: Hilfsmenü
-'            Print "- backupsystem_off      ausschalten des Backupsystems"       'Ausgabe: Hilfsmenü
-'            Print "- backupsystem_status   Status des Backupsystems"       'Ausgabe: Hilfsmenü
-'            Print "- backupsystem_alarm    Zustand des Backupsystems"       'Ausgabe: Hilfsmenü
-            Print "- portstatus            ADC/Türstatus des Serverschranks"       'Ausgabe: Hiltsmen
-            Print "- ?                     Hilfe"           'Ausgabe: Hilfsmenü
+'            Print "- backupsystem_on       einschalten des Backupsystems"       'Ausgabe: Hilfsmenï¿½
+'            Print "- backupsystem_off      ausschalten des Backupsystems"       'Ausgabe: Hilfsmenï¿½
+'            Print "- backupsystem_status   Status des Backupsystems"       'Ausgabe: Hilfsmenï¿½
+'            Print "- backupsystem_alarm    Zustand des Backupsystems"       'Ausgabe: Hilfsmenï¿½
+            Print "- portstatus            ADC/Tï¿½rstatus des Serverschranks"       'Ausgabe: Hiltsmen
+            Print "- ?                     Hilfe"           'Ausgabe: Hilfsmenï¿½
             Print "EOF"                                     'Ausgabe beenden
       Else                                                  'Wenn der Befehl nicht erkannt wurde
             Print "Unbekannter Befehl... (Hilfe mit ?)"     'Fehlermeldung ausgeben
+            Print "ERROR"                                   'Fehlermeldung ausgeben
             Print "EOF"                                     'Ausgabe beenden
       End If
-      Einbefehl = 0                                         'Befehlseingabeprüfung zurücksetzen
-      Befehl = ""                                           'Variable für Befehl zurücksetzen
-      Pwmwert = ""                                          'Variable für Pwmwert zurücksetzen
-      Pwmwert2 = 0                                          'Variable für Pwmwert zurücksetzen
-      Enable Urxc                                           'Interrupt für RS232 wieder Aktivieren
+      Einbefehl = 0                                         'Befehlseingabeprï¿½fung zurï¿½cksetzen
+      Befehl = ""                                           'Variable fï¿½r Befehl zurï¿½cksetzen
+      Pwmwert = ""                                          'Variable fï¿½r Pwmwert zurï¿½cksetzen
+      Pwmwert2 = 0                                          'Variable fï¿½r Pwmwert zurï¿½cksetzen
+      Enable Urxc                                           'Interrupt fï¿½r RS232 wieder Aktivieren
  End If
- Incr Runde                                                 'Variable Runde um 1 erhöhen
+ Incr Runde                                                 'Variable Runde um 1 erhï¿½hen
  If Einbefehl <> 1 Then
     If Runde => 1200 Then                                   'Wenn 1200 Runden erreicht sind
          'If Einbefehl <> 1 Then
             'Print "==========================================="
             'Print "Runde: " ; Runde
          'End If
-'         Gosub 1wire                                        'Sub für Messung aufrufen
+'         Gosub 1wire                                        'Sub fï¿½r Messung aufrufen
          'Gosub 1wireausgabe
 
 '         If Backupsystemstatus = 1 Then
-'            Gosub Backupsystem                              'Sub für Temperaturprüfung aufrufen
+'            Gosub Backupsystem                              'Sub fï¿½r Temperaturprï¿½fung aufrufen
             'Print "CHECK"
            'Print "EOF"
 '         End If
@@ -236,7 +237,7 @@ End
 '         Compare1a = 0
 '         Compare1b = 0
 '         Alarm = 1
-'         Print "SYSTEM WARNING: Temperatur liegt bei " ; Wertarray(1) ; " und somit über " ; Emergencytemp ; " Grad!"
+'         Print "SYSTEM WARNING: Temperatur liegt bei " ; Wertarray(1) ; " und somit ï¿½ber " ; Emergencytemp ; " Grad!"
          'Sound Buzzer , 400 , 450                           'BEEP
          'Sound Buzzer , 400 , 750                           'BEEP
          'Waitms 50                                          'Wartezeit
@@ -284,7 +285,7 @@ Adccheck:
 Return
 
 
-'1Wire Prüfung''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+'1Wire Prï¿½fung''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
 1wirecheck:
 Anzahlsensoren = 0
  Anzahlsensoren = 1wirecount()                              'Anzahl an Sensoren in Variable schreiben
@@ -301,7 +302,7 @@ Anzahlsensoren = 0
      ' Waitms 50                                             'Wartezeit
      ' Sound Buzzer , 400 , 750                              'BEEP
       Waitms 800                                            'Wartezeit
-      Goto 1wirecheck                                       'Prüfung wieder von vorne anfangen
+      Goto 1wirecheck                                       'Prï¿½fung wieder von vorne anfangen
  End If
 Return
 
@@ -377,10 +378,10 @@ End Sub
  Vz = ""
  Wert = 0
  1wreset                                                    'Initialisierung des Bausteins
- 1wwrite &HCC                                               'Überspringe Rombefehl (Skip Rom)
- 1wwrite &H44                                               'Messung durchführen und im Speicher/Register ablegen (Convert T)
+ 1wwrite &HCC                                               'ï¿½berspringe Rombefehl (Skip Rom)
+ 1wwrite &H44                                               'Messung durchfï¿½hren und im Speicher/Register ablegen (Convert T)
  Waitms 800                                                 'Auf Messung warten
- Pos = 0                                                    'Variable auf 0 Setzen damit er bei 0 anfängt zu zählen
+ Pos = 0                                                    'Variable auf 0 Setzen damit er bei 0 anfï¿½ngt zu zï¿½hlen
  Anzahlsensoren = 0
  Anzahlsensoren = 1wirecount()                              'Anzahl Sensoren ermitteln
 
@@ -389,15 +390,15 @@ End Sub
  'If Einbefehl <> 1 Then
    'Print "Sensoren: " ; Anzahlsensoren
  'End If
- While Pos < Anzahlsensoren                                 'Für jeden gefundenen Sensor einen Ablauf der nachfolgenden Befehle
-      If Pos = 0 Then                                       'Prüfen ob der Durchlauf der erste ist
+ While Pos < Anzahlsensoren                                 'Fï¿½r jeden gefundenen Sensor einen Ablauf der nachfolgenden Befehle
+      If Pos = 0 Then                                       'Prï¿½fen ob der Durchlauf der erste ist
             Adresse(1) = 1wsearchfirst()                    'Erste ID des 1wire Bus in Variable(array) einlesen
-      Else                                                  'Prüfen ob der Durchlauf nicht der erste ist
-            Adresse(1) = 1wsearchnext()                     'Nächste ID des 1wire Bus in Variable(array) einlesen
+      Else                                                  'Prï¿½fen ob der Durchlauf nicht der erste ist
+            Adresse(1) = 1wsearchnext()                     'Nï¿½chste ID des 1wire Bus in Variable(array) einlesen
       End If
-      Incr Pos                                              'Positionszähler einen höher setzen
+      Incr Pos                                              'Positionszï¿½hler einen hï¿½her setzen
       Id = ""
-      For I = 1 To 8                                        'Schleife für die Adresse
+      For I = 1 To 8                                        'Schleife fï¿½r die Adresse
            ' If Einbefehl <> 1 Then
                Print Hex(adresse(i)) ;                      'Adresse ausgeben 28 DC 9F 06 02 00 00 39
             'End If
@@ -405,14 +406,14 @@ End Sub
       Next I
       'Print
       1wreset                                               'Initialisierung Des Bausteins
-      1wwrite &H55                                          'Sensor auswählen (Match Rom command)
-      1wwrite Adresse(1) , 8                                'Adresse zum auswählen senden
+      1wwrite &H55                                          'Sensor auswï¿½hlen (Match Rom command)
+      1wwrite Adresse(1) , 8                                'Adresse zum auswï¿½hlen senden
       1wwrite &HBE                                          'Inhalt(Temperaturwert) aus dem Register auslesen
-      For I = 1 To 9                                        'Schleife Für den Temperaturwert
+      For I = 1 To 9                                        'Schleife Fï¿½r den Temperaturwert
             Daten(i) = 1wread()                             'Daten in ein Array schreiben
       Next I
       1wreset                                               'Initialisierung des Bausteins
- If Daten(2) >= 248 Then                                    'Prüfen ob Temperatur im Negativ Bereich liegt
+ If Daten(2) >= 248 Then                                    'Prï¿½fen ob Temperatur im Negativ Bereich liegt
  Vz = "-"                                                   'Vorzeichen auf "-" Setzen
  Daten(1) = &HFF - Daten(1)                                 '***
  Daten(2) = &HFF - Daten(2)                                 '***
@@ -464,7 +465,7 @@ Onrxd:
       End If                                                'Ende
  Elseif Zeichen = 13 Then                                   'Wenn nur Zeichen = CR (Enter)
       'Print Befehl ; "-" ; Pwmwert
-      Einbefehl = 1                                         'Variable Eingabeprüfung auf ein Setzen
+      Einbefehl = 1                                         'Variable Eingabeprï¿½fung auf ein Setzen
       Disable Urxc                                          'Keine weiteren Zeichen Lesen
  End If
 Return
