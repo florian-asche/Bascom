@@ -1,0 +1,116 @@
+
+$regfile = "m128def.dat"
+$crystal = 16000000
+$hwstack = 32
+$swstack = 8
+$framesize = 24
+ 
+ 
+Config Lcd = 20 * 4
+Config Lcdpin = Pin , Db4 = Porta.4 , Db5 = Porta.5 , Db6 = Porta.6 , Db7 = Porta.7 , E = Porta.1 , Rs = Porta.0
+Cls
+Cursor Off Noblink
+Deflcdchar 0 , 7 , 5 , 7 , 32 , 32 , 32 , 32 , 32           ' ZNAK SOTOPNI
+ 
+ 
+Config Pina.3 = Output                                      ' PODSWIETLENIE LCD
+ 
+ 
+ 
+ 
+Declare Sub Get_wenshidu(wendu As Byte , Shidu As Byte)
+ 
+Config Serialin = Buffered , Size = 128
+Config Serialout = Buffered , Size = 128
+ 
+ 
+Dht_put Alias Portb.6                                       ' PODLACZONY CZUJNIK DHT11
+Dht_get Alias Pinb.6                                        ' PODLACZONY CZUJNIK DHT11
+Dht_io_set Alias Ddrb.6                                     ' PODLACZONY CZUJNIK DHT11
+ 
+Dim I As Byte , Tmp As Byte
+Dim J As Byte
+Dim Mybyte As Byte
+Dim Wenshi As String * 40
+Dim Tmp_str8 As String * 8
+Dim Count As Byte
+ 
+Enable Interrupts
+ 
+Set Dht_io_set
+Set Dht_put
+ 
+Locate 1 , 1
+Lcd "Start......"
+Do
+   Waitms 1500
+   Call Get_wenshidu(i , J)
+   Waitms 50
+   Locate 2 , 1
+   Lcd "Temperatura: " ; I ; Chr(0) ; "C"
+   Locate 3 , 1
+   Lcd "Wilgotnosc: " ; J ; "%"
+ 
+Loop
+ 
+ 
+Sub Get_wenshidu(wendu As Byte , Shidu As Byte)
+ 
+   Count = 0
+   Wenshi = ""
+   Set Dht_io_set
+   Reset Dht_put
+   Waitms 20
+ 
+ 
+   Set Dht_put
+   Waitus 40
+   Reset Dht_io_set
+   Waitus 40
+   If Dht_get = 1 Then
+      Shidu = 255
+      Exit Sub
+   End If
+ 
+   Waitus 80
+   If Dht_get = 0 Then
+      Shidu = 255
+      Exit Sub
+   End If
+ 
+   While Dht_get = 1 : Wend
+ 
+   Do
+      While Dht_get = 0 : Wend
+ 
+      Waitus 30
+      If Dht_get = 1 Then
+         Wenshi = Wenshi + "1"
+         While Dht_get = 1 : Wend
+         Else
+         Wenshi = Wenshi + "0"
+      End If
+      Incr Count
+   Loop Until Count = 40
+ 
+   Set Dht_io_set
+   Set Dht_put
+ 
+ 
+   Tmp_str8 = Left(wenshi , 8)
+   Shidu = Binval(tmp_str8)
+ 
+ 
+   Tmp_str8 = Mid(wenshi , 17 , 8)
+   Wendu = Binval(tmp_str8)
+ 
+ 
+   Tmp_str8 = Right(wenshi , 8)
+   Tmp = Binval(tmp_str8)
+ 
+   Mybyte = Wendu + Shidu
+   If Mybyte <> Tmp Then
+      Shidu = 255
+   End If
+End Sub
+ 
