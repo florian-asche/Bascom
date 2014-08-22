@@ -1,4 +1,3 @@
-
 $regfile = "m128def.dat"
 $crystal = 16000000
 $hwstack = 32
